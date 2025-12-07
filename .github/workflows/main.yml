@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - main
+name: Publish website to CPanel      
+jobs:
+  web-deploy:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get latest code
+      uses: actions/checkout@v2.3.2
+
+    - name: sync files
+      uses: samKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
